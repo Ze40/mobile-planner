@@ -62,7 +62,7 @@ fun MonthSelector(
             )
             Icon(
                 imageVector = Icons.Filled.KeyboardArrowDown,
-                contentDescription = "\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u043c\u0435\u0441\u044f\u0446 \u0438 \u0433\u043e\u0434",
+                contentDescription = "Выбрать месяц и год",
                 modifier = Modifier.padding(start = 6.dp)
             )
         }
@@ -82,7 +82,7 @@ fun MonthSelector(
                 IconButton(onClick = { displayedYear-- }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                        contentDescription = "\u041f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0438\u0439 \u0433\u043e\u0434",
+                        contentDescription = "Предыдущий год",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -96,7 +96,7 @@ fun MonthSelector(
                 IconButton(onClick = { displayedYear++ }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                        contentDescription = "\u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0433\u043e\u0434",
+                        contentDescription = "Следующий год",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
