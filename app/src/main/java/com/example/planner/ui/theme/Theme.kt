@@ -1,6 +1,5 @@
 package com.example.planner.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,32 +11,48 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = ColorTokens.AccentOne,
+    onPrimary = ColorTokens.Light.TextPrimaryOnAccentOne,
+    primaryContainer = ColorTokens.Light.ServiceSelectionBackground,
+    onPrimaryContainer = ColorTokens.Dark.TextPrimary,
+    secondary = ColorTokens.AccentTwo,
+    onSecondary = ColorTokens.Light.TextPrimaryOnAccentTwo,
+    tertiary = ColorTokens.Dark.StatusPositive,
+    background = ColorTokens.Dark.BackgroundBase,
+    onBackground = ColorTokens.Dark.TextPrimary,
+    surface = ColorTokens.Dark.BackgroundBase,
+    onSurface = ColorTokens.Dark.TextPrimary,
+    surfaceVariant = ColorTokens.Dark.BackgroundBaseAlt,
+    onSurfaceVariant = ColorTokens.Dark.TextSecondary,
+    error = ColorTokens.Dark.StatusNegative,
+    onError = ColorTokens.Dark.TextPrimary,
+    outline = ColorTokens.Dark.BorderNormal
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = ColorTokens.AccentOne,
+    onPrimary = ColorTokens.Light.TextPrimaryOnAccentOne,
+    primaryContainer = ColorTokens.Light.ServiceSelectionBackground,
+    onPrimaryContainer = ColorTokens.Light.TextPrimary,
+    secondary = ColorTokens.AccentTwo,
+    onSecondary = ColorTokens.Light.TextPrimaryOnAccentTwo,
+    tertiary = ColorTokens.Light.StatusPositive,
+    background = ColorTokens.Light.BackgroundBase,
+    onBackground = ColorTokens.Light.TextPrimary,
+    surface = ColorTokens.Light.BackgroundBase,
+    onSurface = ColorTokens.Light.TextPrimary,
+    surfaceVariant = ColorTokens.Light.BackgroundBaseAlt,
+    onSurfaceVariant = ColorTokens.Light.TextSecondary,
+    error = ColorTokens.Light.StatusNegative,
+    onError = ColorTokens.Light.TextPrimaryOnAccentOne,
+    outline = ColorTokens.Light.BorderNormal
 )
 
 @Composable
 fun PlannerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    // Use the app palette by default; dynamic system colors remain opt-in.
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
