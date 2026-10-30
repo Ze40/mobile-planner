@@ -49,10 +49,10 @@ fun MonthSelector(
         FilledTonalButton(
             onClick = { expanded = true },
             shape = RoundedCornerShape(14.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
+            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
             colors = ButtonDefaults.filledTonalButtonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             )
         ) {
             Text(

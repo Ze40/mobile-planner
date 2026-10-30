@@ -1,5 +1,6 @@
 package com.example.planner.ui.events
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -52,70 +53,110 @@ fun EventCard(
     Card(
         onClick = { detailsVisible = true },
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = categoryColor.copy(alpha = 0.10f)
-        )
+        shape = RoundedCornerShape(20.dp),
+        border = BorderStroke(1.dp, categoryColor.copy(alpha = 0.20f)),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min),
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Box(
+            Column(
                 modifier = Modifier
-                    .width(4.dp)
-                    .fillMaxHeight()
-                    .background(categoryColor)
-            )
-
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 16.dp, top = 12.dp, end = 8.dp, bottom = 12.dp),
-                verticalAlignment = Alignment.Top,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    .width(64.dp)
+                    .padding(start = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                Text(
+                    text = event.event.startTime ?: "—",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = event.event.endTime ?: "—",
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(
+                    topStart = 0.dp,
+                    topEnd = 16.dp,
+                    bottomEnd = 16.dp,
+                    bottomStart = 0.dp
+                ),
+                border = BorderStroke(1.dp, categoryColor.copy(alpha = 0.14f)),
+                colors = CardDefaults.cardColors(
+                    containerColor = categoryColor.copy(alpha = 0.10f)
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = event.event.title,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
+                    Box(
+                        modifier = Modifier
+                            .width(4.dp)
+                            .fillMaxHeight()
+                            .background(categoryColor)
                     )
-                    if (event.event.description.isNotBlank()) {
-                        Text(
-                            text = event.event.description,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                    Surface(
-                        shape = RoundedCornerShape(50),
-                        color = categoryColor.copy(alpha = 0.22f)
+
+                    Row(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 16.dp, top = 12.dp, end = 8.dp, bottom = 12.dp),
+                        verticalAlignment = Alignment.Top,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Text(
-                            text = event.category.name,
-                            modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = categoryColor
+                        Column(
+                            modifier = Modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Text(
+                                text = event.event.title,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            if (event.event.description.isNotBlank()) {
+                                Text(
+                                    text = event.event.description,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    fontSize = 14.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            Surface(
+                                shape = RoundedCornerShape(50),
+                                color = categoryColor.copy(alpha = 0.22f)
+                            ) {
+                                Text(
+                                    text = event.category.name,
+                                    modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp),
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = categoryColor
+                                )
+                            }
+                        }
+
+                        EventActionsMenu(
+                            onEdit = onEdit,
+                            onDelete = onDelete
                         )
                     }
                 }
-
-                EventActionsMenu(
-                    onEdit = onEdit,
-                    onDelete = onDelete
-                )
             }
         }
     }

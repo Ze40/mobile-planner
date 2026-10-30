@@ -68,9 +68,12 @@ fun DayList(
             Card(
                 onClick = { onDateSelected(date) },
                 modifier = Modifier
-                    .width(62.dp)
-                    .height(88.dp),
+                    .width(64.dp)
+                    .height(92.dp),
                 shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = if (isSelected) 4.dp else 0.dp
+                ),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isSelected) {
                         MaterialTheme.colorScheme.primary
