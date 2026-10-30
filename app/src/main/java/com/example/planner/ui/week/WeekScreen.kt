@@ -5,19 +5,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.unit.sp
 import com.example.planner.ui.components.MonthSelector
 import com.example.planner.ui.day.DayList
 import com.example.planner.ui.day.DayPlan
-import java.time.LocalDate
+import com.example.planner.ui.day.DayPlanViewModel
 import java.time.YearMonth
 
 @Composable
-fun WeekScreen() {
-    var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+fun WeekScreen(viewModel: DayPlanViewModel) {
+    val selectedDate by viewModel.selectedDate.collectAsStateWithLifecycle()
+    val events by viewModel.events.collectAsStateWithLifecycle()
     val selectedMonth = YearMonth.from(selectedDate)
 
     Column {
@@ -29,7 +28,9 @@ fun WeekScreen() {
                 MonthSelector(
                     selectedMonth = selectedMonth,
                     onMonthSelected = { month ->
-                        selectedDate = month.atDay(minOf(selectedDate.dayOfMonth, month.lengthOfMonth()))
+                        viewModel.selectDate(
+                            month.atDay(minOf(selectedDate.dayOfMonth, month.lengthOfMonth()))
+                        )
                     }
                 )
             }
@@ -37,10 +38,10 @@ fun WeekScreen() {
             DayList(
                 month = selectedMonth,
                 selectedDate = selectedDate,
-                onDateSelected = { date -> selectedDate = date }
+                onDateSelected = viewModel::selectDate
             )
         }
 
-        DayPlan()
+        DayPlan(events = events)
     }
 }
