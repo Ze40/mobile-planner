@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.planner.data.local.AppDatabase
 import com.example.planner.data.local.EventWithCategory
+import com.example.planner.data.local.EventEntity
 import com.example.planner.data.local.createSampleEventsForCurrentWeek
 import com.example.planner.data.repository.EventRepository
 import java.time.LocalDate
@@ -44,5 +45,11 @@ class DayPlanViewModel(application: Application) : AndroidViewModel(application)
 
     fun selectDate(date: LocalDate) {
         _selectedDate.value = date
+    }
+
+    fun deleteEvent(event: EventEntity) {
+        viewModelScope.launch {
+            repository.delete(event)
+        }
     }
 }

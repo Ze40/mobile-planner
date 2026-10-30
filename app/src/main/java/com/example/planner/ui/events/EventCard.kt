@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -25,7 +24,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,14 +42,14 @@ import com.example.planner.data.local.EventWithCategory
 fun EventCard(
     event: EventWithCategory,
     modifier: Modifier = Modifier,
-    onEdit: () -> Unit = {},
-    onDelete: () -> Unit = {}
+    onClick: () -> Unit,
+    onEdit: () -> Unit,
+    onDelete: () -> Unit
 ) {
-    var detailsVisible by remember(event.event.id) { mutableStateOf(false) }
     val categoryColor = Color(event.category.color.toInt())
 
     Card(
-        onClick = { detailsVisible = true },
+        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
         border = BorderStroke(1.dp, categoryColor.copy(alpha = 0.20f)),
@@ -161,27 +159,6 @@ fun EventCard(
         }
     }
 
-    if (detailsVisible) {
-        AlertDialog(
-            onDismissRequest = { detailsVisible = false },
-            title = { Text(event.event.title) },
-            text = {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("${event.event.date} · ${event.category.name}")
-                    event.event.startTime?.let { Text("Начало: $it") }
-                    event.event.endTime?.let { Text("Окончание: $it") }
-                    if (event.event.description.isNotBlank()) {
-                        Text(event.event.description)
-                    }
-                }
-            },
-            confirmButton = {
-                TextButton(onClick = { detailsVisible = false }) {
-                    Text("Закрыть")
-                }
-            }
-        )
-    }
 }
 
 @Composable

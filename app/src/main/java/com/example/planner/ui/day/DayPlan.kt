@@ -12,11 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.planner.ui.events.EventCard
 import com.example.planner.data.local.EventWithCategory
+import com.example.planner.data.local.EventEntity
+import com.example.planner.ui.events.SwipeToDeleteEvent
 
 @Composable
-fun DayPlan(events: List<EventWithCategory>, modifier: Modifier = Modifier) {
+fun DayPlan(
+    events: List<EventWithCategory>,
+    onEditEvent: (EventEntity) -> Unit,
+    onDeleteEvent: (EventEntity) -> Unit,
+    modifier: Modifier = Modifier
+) {
     if (events.isEmpty()) {
         Box(
             modifier = modifier.fillMaxWidth(),
@@ -35,7 +41,11 @@ fun DayPlan(events: List<EventWithCategory>, modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(items = events, key = { it.event.id }) { event ->
-                EventCard(event = event)
+                SwipeToDeleteEvent(
+                    event = event,
+                    onEdit = { onEditEvent(event.event) },
+                    onDelete = { onDeleteEvent(event.event) }
+                )
             }
         }
     }
